@@ -1,0 +1,12 @@
+/* Global styles for your app */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #121212;
+  color: white;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

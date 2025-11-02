@@ -8,7 +8,7 @@ import Library from "./pages/Library";
 import Login from "./pages/Login";
 
 function App() {
-   return(
+  return (
     <div className="min-h-screen bg-gray-950 text-white flex flex-col">
       <Navbar />
       <div className="flex-1 overflow-y-auto p-4">
@@ -19,9 +19,9 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Routes>
       </div>
-       <Player />
+      <Player />
     </div>
-   );
+  );
 }
 
-export default App
+export default App;
