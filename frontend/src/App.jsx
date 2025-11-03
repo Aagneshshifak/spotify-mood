@@ -5,7 +5,7 @@ import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Player from './components/Player';
 import Home from './pages/Home';
-import MoodPlaylist from './pages/Moodplaylist';
+import MoodPlaylist from './pages/MoodPlaylist';
 import Library from './pages/Library';
 import Login from './pages/Login';
 

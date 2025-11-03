@@ -1,54 +1,59 @@
-import React, { useState } from "react";
+// frontend/src/pages/Login.jsx
+import React, { useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Music, Loader2 } from 'lucide-react';
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { login, loading, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    console.log("Login attempted with:", email, password);
-    // Later: Add Spotify OAuth or your backend API call here
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
+
+  const handleLogin = () => {
+    login();
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-950 text-white">
-      <div className="bg-gray-900 p-8 rounded-2xl shadow-xl w-full max-w-md">
-        <h1 className="text-3xl font-bold mb-6 text-center">Login to Spotify Mood 🎧</h1>
-        <form onSubmit={handleLogin} className="space-y-5">
-          <div>
-            <label className="block text-gray-400 mb-2">Email</label>
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 rounded-xl bg-gray-800 text-white outline-none focus:ring-2 focus:ring-green-500"
-              required
-            />
+    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black flex items-center justify-center p-6">
+      <div className="bg-gray-800/50 backdrop-blur-sm rounded-3xl shadow-2xl w-full max-w-md p-8 border border-gray-700">
+        <div className="text-center mb-8">
+          <div className="inline-block mb-4">
+            <Music className="w-16 h-16 text-green-400" />
           </div>
+          <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-green-400 to-green-600 bg-clip-text text-transparent">
+            Spotify Mood
+          </h1>
+          <p className="text-gray-400">
+            Sign in to discover music based on your emotions
+          </p>
+        </div>
 
-          <div>
-            <label className="block text-gray-400 mb-2">Password</label>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-3 rounded-xl bg-gray-800 text-white outline-none focus:ring-2 focus:ring-green-500"
-              required
-            />
-          </div>
+        <button
+          onClick={handleLogin}
+          disabled={loading}
+          className="w-full bg-green-500 hover:bg-green-600 disabled:bg-gray-700 disabled:cursor-not-allowed text-white font-semibold py-4 rounded-xl transition flex items-center justify-center space-x-2"
+        >
+          {loading ? (
+            <>
+              <Loader2 className="w-5 h-5 animate-spin" />
+              <span>Connecting...</span>
+            </>
+          ) : (
+            <>
+              <Music className="w-5 h-5" />
+              <span>Login with Spotify</span>
+            </>
+          )}
+        </button>
 
-          <button
-            type="submit"
-            className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-xl transition"
-          >
-            Login
-          </button>
-        </form>
-
-        <p className="text-gray-400 text-sm text-center mt-6">
-          Don’t have an account? <span className="text-green-400 cursor-pointer hover:underline">Sign up</span>
+        <p className="text-gray-500 text-sm text-center mt-6">
+          By continuing, you agree to our terms of service
         </p>
       </div>
     </div>
